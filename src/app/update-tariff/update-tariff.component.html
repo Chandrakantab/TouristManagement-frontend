@@ -1,0 +1,67 @@
+<div class="update-tariff-page">
+    <div class = "searchDiv">
+        <h2>Select below critrias for search</h2>
+        <!-- <form [formGroup] = "searchTariffForm">
+            <div class="container-fluid">               
+                <div class="search-input">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Branch Name</mat-label>
+                        <input matInput type="text" formControllName="rBranchName" maxlength="50" />
+                    </mat-form-field>
+                </div>
+                <div class="search-input">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Place</mat-label>
+                        <mat-select formControllName="rPlace">
+                            <mat-option *ngFor="let el of placesArray" value="el">{{el}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form> -->
+
+        <div>
+            Branch Name : {{ branchName }}
+        </div>
+        <div>
+            Branch Id : {{ branchId }}
+        </div>
+    </div>
+
+    <div class = "resultDiv">
+        <table mat-table
+            [dataSource]="resultDatasource"
+            class="mat-elevation-z8 data-table">
+
+            <ng-container matColumnDef="place">
+                <th scope="col" mat-header-cell *matHeaderCellDef>PLACE</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.name}}
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="tariff">
+                <th scope="col" mat-header-cell *matHeaderCellDef>TARIFF</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.tariff}}
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="action">
+                <th scope="col" mat-header-cell *matHeaderCellDef>ACTION</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" (click)="updateTariff(element)">Update Tariff</button>
+                </td>
+            </ng-container> 
+            
+            
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns:displayColumns"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6">
+                    No details to display
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

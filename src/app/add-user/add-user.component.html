@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Add User</h2>
+<mat-dialog-content>
+
+    <form [formGroup] = "addForm">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>User Name</mat-label>
+                        <input 
+                        matInput
+                        type="text"
+                        maxlength="20"
+                        formControlName="rUserName" />
+                    </mat-form-field>
+                    <div class="margin-bottom-thin my-mat-hint">
+                        Max Length: 20 characters<span>&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input 
+                        matInput
+                        type="password"
+                        minlength="5"
+                        maxlength="20"
+                        formControlName="rPassword" />
+                    </mat-form-field>
+                    <div class="margin-bottom-thin my-mat-hint">
+                        Min: 5 & Max Length: 20 characters<span>&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Is Admin?</mat-label>
+                        <mat-select formControlName="rIsAdmin" >
+                            <mat-option value="1">Yes</mat-option>
+                            <mat-option value="0">No</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>    
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="m-2" mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveUser()" [disabled]="!addForm.valid">Save</button>
+</mat-dialog-actions>

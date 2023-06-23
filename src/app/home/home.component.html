@@ -1,0 +1,57 @@
+<div class="header">
+<img class="header-image" src="../../assets/images/DQB3cf.jpg">
+</div>
+
+<mat-sidenav-container class="mat-sidenav-container" [hasBackdrop]="false">
+    <mat-sidenav class="sidenav" fixedInViewport mode="over" opened>
+        <div class="app-logo">
+            <img class="logo-class" src="../../assets/images/logo.jpg" alt="logo here">
+
+        </div>
+
+        <div class="d-flex sidenav-list-item" 
+            (click) = "login()">
+            <span>Login</span>
+        </div>
+        <div class="d-flex sidenav-list-item" 
+            (click) = "companyDetail()">
+            <span>Company Details</span>
+        </div>
+        <!-- <div class="d-flex sidenav-list-item" 
+            (click) = "addCompany()">
+            <span>Add Company</span>
+        </div> -->
+        <!-- <div class="d-flex sidenav-list-item" 
+            (click) = "updateTariff()">
+            <span>Update Tariff</span>
+        </div>         -->
+        <div class="d-flex sidenav-list-item" 
+            (click) = "search()">
+            <span>Search</span>
+        </div>
+        <br /><br />
+         <!-- <div class="d-flex sidenav-list-item" 
+            (click) = "addUser()">
+            <span>Add User</span>
+        </div> -->
+        
+        <div *ngIf="isAdminUser === 1">
+            <div><h4>Admin view</h4></div>
+            <div class="d-flex sidenav-list-item" 
+                (click) = "userList()">
+                <span>User Details</span>
+            </div>
+
+        </div>
+       
+        <div class="d-flex sidenav-list-item" 
+            (click) = "logout()">
+            <span>Logout</span>
+        </div>
+        
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Update Tariff</h2>
+    <mat-dialog-content>
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <span class="title">Place: </span> {{placeInfo.name}}
+            </div>
+            
+            <div class="col">
+                <span class="title">Tariff: </span>{{placeInfo.tariff}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="title"> Branch: </span>{{placeInfo.branch_name}}
+            </div>           
+        </div>
+    </div>
+</div>
+<br />
+
+    <form [formGroup] = "updateTariffForm">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>New Tariff</mat-label>
+                        <input matInput
+                        type="text"
+                        formControlName="rTariff"
+                        #tariff />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="m-2" mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" (click)="updateTariff()"
+    [disabled]="!updateTariffForm.valid">Update</button>
+</mat-dialog-actions>

@@ -1,0 +1,72 @@
+<div class="companyDetailsPage">
+    <div class = "resultDiv">
+        <h2>All Branches</h2>
+        
+    <button mat-raised-button color="primary" (click)="addCompany()">New Company</button>
+        
+        <table mat-table
+            [dataSource]="resultDatasource"
+            class="mat-elevation-z8 data-table">
+
+            <ng-container matColumnDef="branchId">
+                <th scope="col" mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let element">
+                    <a (click) = "viewPlaces(element)" style="color:blue">{{element.branchId}}</a>
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="branchName">
+                <th scope="col" mat-header-cell *matHeaderCellDef>NAME</th>
+                <td mat-cell *matCellDef="let element">
+                    <a (click) = "viewPlaces(element)" style="color:blue">{{element.branchName}}</a>
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="place">
+                <th scope="col" mat-header-cell *matHeaderCellDef>PLACE</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.place}}
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="website">
+                <th scope="col" mat-header-cell *matHeaderCellDef>WEBSITE</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.website}}
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="contact">
+                <th scope="col" mat-header-cell *matHeaderCellDef>CONTACT</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.contact}}
+                </td>
+            </ng-container> 
+            <ng-container matColumnDef="email">
+                <th scope="col" mat-header-cell *matHeaderCellDef>EMAIL</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.email}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="createdDate">
+                <th scope="col" mat-header-cell *matHeaderCellDef>CREATED DATE</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.createdDate}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th scope="col" mat-header-cell *matHeaderCellDef>ACTION</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" (click) = editCompany(element)>Edit</button> &nbsp;&nbsp;
+                    <!-- <a (click) = deleteCompany(element)>Delete</a> -->
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns:displayColumns"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6">
+                    No details to display
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
