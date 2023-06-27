@@ -9,8 +9,7 @@ export class RouterService {
   constructor(private router: Router, private location: Location, private authService: AuthenticationService) {}
 
   navigateToHome() {
-    console.log("navigate here");
-    this.router.navigate(['/search'])
+    this.router.navigate(['/home']);
   }
 
   routeToLogin() {
@@ -24,6 +23,14 @@ export class RouterService {
   navigateToCompanyDetails() {
     this.router.navigate(['/company']);
   }
+
+  routeToAdminSearch() {
+    this.router.navigate(['/adminSearch']);
+  }
+
+  routeToLanding() {
+    this.router.navigate(['/landing']);
+  }
   
   routeToSignUp() {
     this.router.navigate(['register']);
@@ -35,6 +42,8 @@ export class RouterService {
 
   logout() {
     this.authService.removeAuthentication();
+    //this.authService.setUserId(0);
+    //this.authService.setIsAdmin(0);
     this.routeToLogin();
   }
 }

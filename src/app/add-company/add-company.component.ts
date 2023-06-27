@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Company } from '../models/company';
+
 import { CompanyService } from '../services/company.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 import { AuthenticationService } from '../services/authentication.service';
+import { Company } from '../models/company';
 
 @Component({
   selector: 'app-add-company',
@@ -24,40 +25,31 @@ export class AddCompanyComponent implements OnInit {
   
   constructor(
     private dialogRef: MatDialogRef<AddCompanyComponent>, 
-    private companyService: CompanyService, 
-    private router:Router,
     private authService : AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data : any) {}
 
 
   ngOnInit(): void {
 
-  this.company = this.data;
+    this.company = this.data;
 
-  console.log("data", this.company);
-
-  if(this.data) {
-    this.addCompanyForm = new UntypedFormGroup({
-      rName : new UntypedFormControl(this.company.branchName),
-      rPlace: new UntypedFormControl(this.company.place),
-      rWebsite: new UntypedFormControl(this.company.website),
-      rContact: new UntypedFormControl(this.company.contact),
-      rEmail : new UntypedFormControl(this.company.email)
-    })
-  } else {
-    this.addCompanyForm = new UntypedFormGroup({
-      rName : new UntypedFormControl('', Validators.required),
-      rPlace: new UntypedFormControl('', Validators.required),
-      rWebsite: new UntypedFormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      rContact: new UntypedFormControl('', Validators.required),
-      rEmail : new UntypedFormControl('', [Validators.required, Validators.email])
-    })
-  }
-    
-  }
-
-  get m(){
-    return this.addCompanyForm.controls;
+    if(this.data) {
+      this.addCompanyForm = new UntypedFormGroup({
+        rName : new UntypedFormControl(this.company.branchName),
+        rPlace: new UntypedFormControl(this.company.place),
+        rWebsite: new UntypedFormControl(this.company.website),
+        rContact: new UntypedFormControl(this.company.contact),
+        rEmail : new UntypedFormControl(this.company.email)
+      })
+    } else {
+      this.addCompanyForm = new UntypedFormGroup({
+        rName : new UntypedFormControl('', Validators.required),
+        rPlace: new UntypedFormControl('', Validators.required),
+        rWebsite: new UntypedFormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+        rContact: new UntypedFormControl('', Validators.required),
+        rEmail : new UntypedFormControl('', [Validators.required, Validators.email])
+      })
+    }    
   }
 
   saveCompany() {
@@ -72,5 +64,5 @@ export class AddCompanyComponent implements OnInit {
       userId: this.authService.getUserId()
       });      
     }
-  }
+  } 
 }

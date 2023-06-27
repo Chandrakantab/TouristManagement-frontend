@@ -8,16 +8,16 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CanActivateRouteGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   constructor(private authenticationService: AuthenticationService,
     private routerService: RouterService) {}
 
 
-    canActivate(): Observable<boolean> {
-      return this.authenticationService.isUserAuthenticated(this.authenticationService.getBearerToken()).pipe(map(authState => {
-        if (!authState["isAuthenticated"]) this.routerService.routeToLogin();
-         return !!authState;
-      })
-    )}
+    canActivate(): boolean {
+        if (parseInt(this.authenticationService.getIsAdmin()) === 1) {
+            return true;
+      }
+        return false;
+    }
 }

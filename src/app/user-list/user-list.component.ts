@@ -20,7 +20,6 @@ export class UserListComponent implements OnInit {
   }
 
   getAllUsers() {
-    console.log("here");
     this.userService.getAllUsers().subscribe((res) => {
       this.resultDatasource.data = res;
     })
@@ -31,12 +30,23 @@ export class UserListComponent implements OnInit {
       width:'1000px',
     });
     modal.afterClosed().subscribe((data) => {
-      console.log('addUser', data);
-
-      // this.companyService.addCompany(data).subscribe((r) => {
-      //   this.getAllCompanies();
-      //   });
+      this.userService.registerUser(data).subscribe(() => {
+        this.getAllUsers();
+        });
     });
+  }
+
+  editUser(element) {
+    const modal = this.dialog.open(AddUserComponent, {
+      data: element,
+    });
+
+    modal.afterClosed().subscribe((data) => {
+      this.userService.editUser(data).subscribe(() => {
+        this.getAllUsers();
+       });
+
+    })
   }
 
 }

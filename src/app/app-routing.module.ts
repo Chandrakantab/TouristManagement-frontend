@@ -8,6 +8,10 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { CanActivateRouteGuard } from './can-activate-route.guard';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { LandingComponent } from './landing/landing.component';
+import { AdminSearchComponent } from './admin-search/admin-search.component';
+import { HomeComponent } from './home/home.component';
+import { AdminGuard } from './admin-guard';
 
 const routes: Routes = [
   {
@@ -26,8 +30,12 @@ const routes: Routes = [
     path:"search", component:SearchComponent, canActivate: [CanActivateRouteGuard]
   },
   {
+    path:"adminSearch", component:AdminSearchComponent, canActivate: [CanActivateRouteGuard, AdminGuard]
+  },
+  {
     path:"addUser", component:AddUserComponent, canActivate: [CanActivateRouteGuard]
   },
+  
   {
     path:"company", component:CompanyDetailsComponent, canActivate:[CanActivateRouteGuard]
   },
@@ -36,6 +44,12 @@ const routes: Routes = [
   },
   {
     path:'company/:id', component:UpdateTariffComponent, canActivate:[CanActivateRouteGuard]
+  },
+  {
+    path:'landing' , component:LandingComponent, canActivate:[CanActivateRouteGuard]
+  },
+  {
+    path:'home' , component:HomeComponent, canActivate:[CanActivateRouteGuard]
   }
 ];
 

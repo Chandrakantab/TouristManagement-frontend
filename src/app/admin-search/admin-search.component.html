@@ -5,22 +5,14 @@
             <div class="container-fluid">
                 <div class="search-input">
                     <mat-form-field appearance="outline">
-                        <mat-label>Branch ID</mat-label>
-                        <input matInput type="text" formControlName="rBranchId" />
+                        <mat-label>Search Criteria</mat-label>
+                        <input matInput type="text" formControlName="rCriteria" />
                     </mat-form-field>
                 </div>
                 <div class="search-input">
                     <mat-form-field appearance="outline">
-                        <mat-label>Branch Name</mat-label>
-                        <input matInput type="text" formControlName="rBranchName" maxlength="50" />
-                    </mat-form-field>
-                </div>
-                <div class="search-input">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Place</mat-label>
-                        <mat-select formControlName="rPlace">
-                            <mat-option *ngFor="let el of placesArray" value="{{el.placeId}}">{{el.name}}</mat-option>
-                        </mat-select>
+                        <mat-label>Criteria Value</mat-label>
+                        <input matInput type="text" formControlName="rCriteriaValue" maxlength="50" />
                     </mat-form-field>
                 </div>
                 <div class="search-input">

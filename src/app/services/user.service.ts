@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Company } from '../models/company';
+import { concatMap } from 'rxjs';
 
 
 @Injectable({
@@ -15,17 +16,14 @@ export class UserService {
   
 
   addCompany(companyData:Company){
-    console.log("companyData", companyData);
     return this.http.addCompany(companyData);
   };
 
   editCompany(companyData:Company){
-    console.log("companyData", companyData);
     return this.http.editCompany(companyData);
   };
 
   getAllCompanies(userId) {
-    console.log("inside service" , userId);
     return this.http.getAllCompanies(userId);
   }
 
@@ -38,12 +36,19 @@ export class UserService {
   }
 
   updateTariff(tariffData) {
-    console.log("tariif data ", tariffData )
     return this.http.updateTariff(tariffData);
   }
  
   getAllUsers() {
     return this.http.getAllUsers();
+  }
+
+  registerUser (user) {
+    return this.http.registerUser(user);
+  }
+
+  editUser(user) {
+    return this.http.updateUser(user);
   }
 
 }

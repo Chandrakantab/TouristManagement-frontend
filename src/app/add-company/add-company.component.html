@@ -1,6 +1,6 @@
 <!-- <div class="add-company-container"> -->
 <h2 mat-dialog-title>Add Company</h2>
-<mat-dialog-content>
+ <mat-dialog-content>
     <div class="formContainer">
         <form [formGroup] = "addCompanyForm" id="addCompanyForm">
             <div class="container-fluid">
@@ -25,10 +25,10 @@
                             <mat-label>Website</mat-label>
                             <input matInput #website type="text" maxlength="100" 
                             formControlName="rWebsite" required />
-                            <div *ngIf="m['rWebsite'].touched && m['rWebsite'].invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="m['rWebsite'].touched && m['rWebsite'].invalid" class="alert alert-danger">
                                 <div *ngIf="m['rWebsite'].errors?.['required']">Please provide url</div>
                                 <div *ngIf="m['rWebsite'].errors?.['pattern']">Please provide valid url</div>
-                              </div>
+                              </div> -->
                         </mat-form-field>
                     </div>
                     <div class="col">

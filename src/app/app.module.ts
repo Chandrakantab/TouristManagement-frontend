@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule} from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list'; 
 import { MatIconModule } from '@angular/material/icon'
@@ -32,6 +32,9 @@ import { RouterService } from './services/router.service';
 import { CanActivateRouteGuard } from './can-activate-route.guard';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { LandingComponent } from './landing/landing.component';
+import { AdminSearchComponent } from './admin-search/admin-search.component';
+import { AuthInterceptor } from './AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { UserListComponent } from './user-list/user-list.component';
     UpdateTariffDialogComponent,
     AddUserDialogComponent,
     CompanyDetailsComponent,
-    UserListComponent
+    UserListComponent,
+    LandingComponent,
+    AdminSearchComponent,
+    
   ],
   exports: [
     MatSidenavModule,
@@ -76,9 +82,12 @@ import { UserListComponent } from './user-list/user-list.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,
-    MatDialogModule 
+    MatDialogModule,
+ ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [AuthenticationService,RouterService, CanActivateRouteGuard],
+  providers: [AuthenticationService,RouterService, CanActivateRouteGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

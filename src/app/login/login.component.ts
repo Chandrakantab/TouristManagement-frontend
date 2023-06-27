@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { RouterService } from '../services/router.service';
@@ -30,22 +29,6 @@ export class LoginComponent implements OnInit {
       })    
     }
 
-  // login() {
-  //   if(this.loginForm.valid) {
-  //     let userName = this.loginForm.get('rUserName').value;
-  //     let formPass = this.loginForm.get('rPassword').value;
-
-  //     this.authenticationService.getUserById(userName).subscribe((res) =>{
-  //       if(Object.keys(res).length) {
-  //         this.validateUser(res, formPass)
-  //       } else {
-  //         console.log("No User Found");
-  //       }
-  //     })
-  //   }
-  // }
-
-
   login () {
     if(this.loginForm.valid) {
       let userName = this.loginForm.get('rUserName').value;
@@ -55,19 +38,18 @@ export class LoginComponent implements OnInit {
     
       this.authenticationService.authenticateUser(loginData).subscribe(
         response => {
-          console.log("REsponse", response);
           // Set the token in sessionStorage
+          console.log("token ", response['token']);
           this.authenticationService.setBearerToken(response['token']);
           
           this.authenticationService.setUserId(response['userId']);
           this.authenticationService.setIsAdmin(response['isAdmin']);
-          console.log("getIsAdmin", this.authenticationService.getIsAdmin());
-          console.log("getUserId", this.authenticationService.getUserId());
-          if(parseInt(this.authenticationService.getIsAdmin()) === 1) {
-            this.routerService.routeToUserDetails();
-          } else {
-            this.routerService.navigateToCompanyDetails();
-          }
+          this.routerService.routeToLanding();
+          // if(parseInt(this.authenticationService.getIsAdmin()) === 1) {
+          //   this.routerService.routeToAdminSearch();
+          // } else {
+          //   this.routerService.navigateToCompanyDetails();
+          // }
           
         },
         err => {

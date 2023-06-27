@@ -19,7 +19,6 @@ export class UpdateTariffDialogComponent implements OnInit {
   }
   ngOnInit(): void {
     this.placeInfo = this.data;
-    console.log("tariff", this.placeInfo)
     this.updateTariffForm = new UntypedFormGroup({
       rTariff: new UntypedFormControl(this.placeInfo.tariff, Validators.required)
     })

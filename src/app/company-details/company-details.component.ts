@@ -30,19 +30,15 @@ export class CompanyDetailsComponent implements OnInit {
     this.isAdminUser = parseInt(this.authService.getIsAdmin());
     this.userId = parseInt(this.authService.getUserId());
 
-    console.log("Admin ", this.isAdminUser);
-    console.log("userId ", this.userId);
     this.getAllCompanies();
   }
 
   getAllCompanies() {
     if(this.isAdminUser === 1) {
-      console.log("inside admin");
       this.companyService.getAllCompanies(0).subscribe((res) => {
         this.resultDatasource.data = res;
       });
     } else {
-      console.log("inside user", this.userId);
       this.companyService.getAllCompanies(this.userId).subscribe((res) => {
         this.resultDatasource.data = res;
       });
@@ -54,7 +50,6 @@ export class CompanyDetailsComponent implements OnInit {
       width:'1000px',
     });
     modal.afterClosed().subscribe((data) => {
-      console.log('addCompany', data);
 
       this.companyService.addCompany(data).subscribe((r) => {
         this.getAllCompanies();
@@ -68,7 +63,6 @@ export class CompanyDetailsComponent implements OnInit {
     });
 
     modal.afterClosed().subscribe((data) => {
-      console.log('editCompany', data);
       this.companyService.editCompany(data).subscribe((r) => {
 
         this.getAllCompanies();
@@ -78,7 +72,6 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   viewPlaces(element) {
-    console.log("element", element);
     this.router.navigate(['/company',element.branchId])
   }
   

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterService } from '../services/router.service';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -9,14 +9,24 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-
-  isAdminUser = 0;
+  loggedUserId: number;
+  loggedIsAdmin: number;
   
-  constructor(private router:Router,private routerService:RouterService,  private authService : AuthenticationService,){}
+  constructor(private router:Router,private routerService:RouterService,  private authService : AuthenticationService, private route : ActivatedRoute){
+    this.authService.getLoggedInName.subscribe(userId => this.changeId(userId));
+    this.authService.getLoggedIsAdmin.subscribe(isAdmin => this.changeIsAdmin(isAdmin));
+  }
   
-  ngOnInit(): void {
-    this.isAdminUser = parseInt(this.authService.getIsAdmin());
-    console.log(this.isAdminUser , "admin user he?")
+  ngOnInit() { 
+    this.loggedUserId = parseInt(this.authService.getUserId());
+    this.loggedIsAdmin = parseInt(this.authService.getIsAdmin());
+  }
+ 
+  private changeId(userId) {
+        this.loggedUserId = parseInt(userId);
+  }
+  private changeIsAdmin(isAdmin) {
+      this.loggedIsAdmin = parseInt(isAdmin);
   }
 
   addCompany() {
@@ -39,12 +49,20 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/search']);
   }
 
+  adminSearch() {
+    this.router.navigate(['/adminSearch']);
+  }
+
   addUser() {
     this.router.navigate(['/addUser']);
   }
 
   userList() {
     this.router.navigate(['/user']);
+  }
+
+  landing() {
+    this.router.navigate(['/landing']);
   }
 
   logout() {

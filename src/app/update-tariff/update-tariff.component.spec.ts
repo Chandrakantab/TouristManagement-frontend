@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateTariffComponent } from './update-tariff.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AppModule } from '../app.module';
+import { AuthenticationService } from '../services/authentication.service';
 
 describe('UpdateTariffComponent', () => {
   let component: UpdateTariffComponent;
@@ -8,6 +11,12 @@ describe('UpdateTariffComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [AppModule], 
+      providers: [
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_DIALOG_DATA, useValue: []},
+        {provide: AuthenticationService, useValue:[]},
+    ],
       declarations: [ UpdateTariffComponent ]
     })
     .compileComponents();

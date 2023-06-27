@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject} from 'rxjs';
 
 
 import { User } from '../models/user';
 
-
 @Injectable()
 export class AuthenticationService {
+
+  @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
+  @Output() getLoggedIsAdmin: EventEmitter<any> = new EventEmitter();
 
   //private authUrl = 'http://localhost:3000/auth/v1/';
   private authUrl = 'http://localhost:8087/api/v1/auth/';
@@ -27,18 +29,19 @@ export class AuthenticationService {
     this.usersSubjectById = new BehaviorSubject(this.usersById);
   }
 
-  authenticateUser(data) {
+  
+
+  authenticateUser(data) : Observable<any> {
+    //this.getLoggedInName.emit(0);
     return this.httpClient.post(this.authUrl + 'loginuser/', data);
   }
   
 
   saveUser(data) {
-    console.log(data);
     return this.httpClient.post(this.authUrl + 'register/',data);
   }
 
-  updateUser(data) {
-    console.log(data);    
+  updateUser(data) {  
     return this.httpClient.post(this.authUrl + 'update/',data);
   }
 
@@ -50,14 +53,12 @@ export class AuthenticationService {
     });
   }
 
-  getUser(data): BehaviorSubject<Array<User>> {    
-    //console.log("getuser" + this.usersSubject);
+  getUser(data): BehaviorSubject<Array<User>> {  
     this.fetchUser(data);    
     return this.usersSubject;
   }
 
   fetchUserById(data) {
-    console.log(this.authUrl + 'getUser/'+ data);
     return this.httpClient.get<Array<User>>(this.authUrl + 'getUser/'+ data)
     .subscribe(data => {
       this.usersById = data;
@@ -68,8 +69,6 @@ export class AuthenticationService {
   getUserById(data): BehaviorSubject<Array<User>> {
     this.fetchUserById(data);
     return this.usersSubjectById;
-    //console.log(this.authUrl + 'getUser/'+ data);
-    //return this.httpClient.get(this.authUrl + 'getUser/'+ data);
   }
   
 
@@ -77,8 +76,6 @@ export class AuthenticationService {
      return this.httpClient.post(this.authUrl1 + 'isAuthenticated', {}, {
       headers : new HttpHeaders().set('Authorization', `Bearer ${token}`)
     });
-
-    
   }
 
   isLoggedIn() {
@@ -86,17 +83,14 @@ export class AuthenticationService {
   }
 
    setBearerToken(token) {
-    // console.log('inside setBearerToken() ->'+token);
     sessionStorage.setItem('bearerToken', token);
   }
 
   getBearerToken() {
-    // console.log('inside getBearerToken() ->'+sessionStorage.getItem('bearerToken'));
     return sessionStorage.getItem('bearerToken');
   }
 
   setUserName(userName) {
-    // console.log('inside setBearerToken() ->'+token);
     sessionStorage.setItem('userName', userName);
   }
 
@@ -109,11 +103,12 @@ export class AuthenticationService {
   }
 
   setUserId(userId) {
-    // console.log('inside setBearerToken() ->'+token);
+    this.getLoggedInName.emit(userId);
     sessionStorage.setItem('userId', userId);
   }
 
   setIsAdmin(isAdmin) {
+    this.getLoggedIsAdmin.emit(isAdmin);
     sessionStorage.setItem('isAdmin', isAdmin);
   }
   
@@ -122,13 +117,14 @@ export class AuthenticationService {
   }
 
   getUserId() {
-    // console.log('inside getBearerToken() ->'+sessionStorage.getItem('bearerToken'));
     return sessionStorage.getItem('userId');
   }
 
   
 
   removeAuthentication(){
+    this.getLoggedInName.emit(0);
+    this.getLoggedIsAdmin.emit(0);
     sessionStorage.clear();
   }
 }

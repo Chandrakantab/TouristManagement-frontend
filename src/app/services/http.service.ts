@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
@@ -9,27 +9,26 @@ import { Company } from '../models/company';
 })
 export class HttpService {
   //private apiUserByID:string =`http://localhost:3000/Users`;
-  private apiUserByID:string = `http://localhost:8084/api/v1/user/`
+  private apiUserByID:string = `http://localhost:8084/api/v1/user`
   private companyAPI: string = 'http://localhost:8084/api/v1/branch'
   private companyQueryAPI: string = 'http://localhost:8083/api/v1/branch'
-  private userQueryApi : string = 'http://localhost:8083/api/v1/user'
+  private userQueryAPI : string = 'http://localhost:8083/api/v1/user'
+  private placeLookUpAPI : string = 'http://localhost:8083/api/v1/touristPlaces'
+  private searchAPI : "http://localhost:8083/api/v1/search";
 
   constructor(private http:HttpClient) { }
 
   getUserById(userID):Observable<User> {
-    console.log("url", this.http.get<User>(`${this.apiUserByID}${userID}`));
     return this.http.get<User>(`${this.apiUserByID}${userID}`);
   }
 
   addCompany(companyData:Company) {
-    console.log("companyDatatoadd", companyData);
-    let apiURL = this.companyAPI +'/add-places';
+    let apiURL = this.companyAPI +'/addPlaces';
     return this.http.post<Company>(apiURL, companyData);
   }
 
   editCompany(companyData:Company) {
-    console.log("companyDatatoadd", companyData);
-    let apiURL = this.companyAPI +'/edit-places';
+    let apiURL = this.companyAPI +'/editPlaces';
     return this.http.put<Company>(apiURL, companyData);
   }
 
@@ -48,13 +47,36 @@ export class HttpService {
   }
 
   updateTariff(tariffData) {
-    let apiURL = this.companyQueryAPI + '/update-tariff';
+    let apiURL = this.companyQueryAPI + '/update-tariff/'+tariffData['branch_id'];
     let status =  this.http.put(apiURL, tariffData);
-    console.log("status", status);
     return status;
   }
 
   getAllUsers() : Observable<any> {
-    return this.http.get<Array<User>>(this.userQueryApi);
+    return this.http.get<Array<User>>(this.userQueryAPI);
   }
-}
+
+  getTouristPlaceLookUp() : Observable<any> {
+    return this.http.get(this.placeLookUpAPI);
+  }
+
+  getSearchData(obj) : Observable<any> {
+    let params: HttpParams = new HttpParams();
+    params = params.set("branchId", obj['branchId']);
+    params = params.set("branchName", obj['branchName']);
+    params = params.set("placeId", obj['placeId']);
+    return this.http.get<any>(this.searchAPI, {params:params});
+  }
+
+  getAdminSearchData(criteria, criteriaValue) : Observable<any> {
+    return this.http.get<any>("http://localhost:8083/api/v1/admin/" + criteria + "/" + criteriaValue);
+  }
+
+  registerUser(user) : Observable<User> {
+    return this.http.post<User>(this.apiUserByID+'/registerUser', user); 
+  }
+
+  updateUser(user) : Observable<User> {
+    return this.http.put<User>(this.apiUserByID+'/updateUser', user); 
+  }
+ }

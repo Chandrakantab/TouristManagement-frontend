@@ -3,9 +3,10 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog'
 import { UpdateTariffDialogComponent } from '../dialog/update-tariff-dialog/update-tariff-dialog.component';
-import { ActivatedRoute, Params } from '@angular/router';
+
 import { concatMap } from 'rxjs';
 import { CompanyService } from '../services/company.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-update-tariff',
@@ -58,7 +59,6 @@ constructor(private dialog: MatDialog, private route: ActivatedRoute, private co
  
 
   setDatasource(res) {
-    console.log("result", res);
     this.resultDatasource.data = res;
   }
 
