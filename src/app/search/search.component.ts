@@ -29,7 +29,7 @@ constructor(private searchService : SearchService) {}
   }
 
   search() {
-    if(this.searchForm.valid) {
+    if(this.searchForm.valid) {      
       if(this.searchForm.get('rBranchId').value.trim() || this.searchForm.get('rBranchName').value.trim() || this.searchForm.get('rPlace').value) {
         this.errorMsg = "";
         let obj = {

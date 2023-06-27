@@ -14,7 +14,7 @@ export class HttpService {
   private companyQueryAPI: string = 'http://localhost:8083/api/v1/branch'
   private userQueryAPI : string = 'http://localhost:8083/api/v1/user'
   private placeLookUpAPI : string = 'http://localhost:8083/api/v1/touristPlaces'
-  private searchAPI : "http://localhost:8083/api/v1/search";
+  private searchAPI : string = "http://localhost:8083/api/v1/search";
 
   constructor(private http:HttpClient) { }
 
@@ -65,6 +65,7 @@ export class HttpService {
     params = params.set("branchId", obj['branchId']);
     params = params.set("branchName", obj['branchName']);
     params = params.set("placeId", obj['placeId']);
+
     return this.http.get<any>(this.searchAPI, {params:params});
   }
 

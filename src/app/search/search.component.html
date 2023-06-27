@@ -1,7 +1,7 @@
 <div class="searchPage">
     <div class = "searchDiv">
         <h2>Select below criterias for search</h2>
-        <form [formGroup] = "searchForm" (ngSubmit) = "search()">
+        <form [formGroup] = "searchForm">
             <div class="container-fluid">
                 <div class="search-input">
                     <mat-form-field appearance="outline">
@@ -24,7 +24,7 @@
                     </mat-form-field>
                 </div>
                 <div class="search-input">
-                    <button type="submit" mat-raised-button color="primary" [disabled]="!searchForm.valid">Search</button>
+                    <button type="submit" mat-raised-button color="primary" [disabled]="!searchForm.valid" (click)="search()">Search</button>
                 </div>
                         
             </div>
