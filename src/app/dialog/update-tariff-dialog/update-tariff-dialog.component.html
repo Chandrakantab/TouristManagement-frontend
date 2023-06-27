@@ -30,8 +30,12 @@
                         <input matInput
                         type="text"
                         formControlName="rTariff"
-                        #tariff />
+                        #tariff 
+                        min="50000"
+                        max="100000"/>
+                        <mat-hint>Tariff should be between Rs. 50,000 to Rs. 1,00,000</mat-hint>
                     </mat-form-field>
+                    
                 </div>
             </div>
         </div>
